@@ -81,16 +81,12 @@ namespace SQLTask
         {
             using (var context = new MyDbContext())
             {
-                var example = new { ProductName = "example product", CategoryName = "example category" };
-
                 var result = context.Products
                     .SelectMany(p => p.Categories.DefaultIfEmpty(), (p, c) => new { ProductName = p.Name, CategoryName = c.Name })
                     .ToList();
 
                 foreach (var item in result)
-                {
                     Console.WriteLine($"Product: {item.ProductName.PadRight(25)}, Category: {item.CategoryName}");
-                }
             }
         }
 
